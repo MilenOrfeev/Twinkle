@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Twinkle</string>
+    <string name="new_expenditure">New Expenditure</string>
+    <string name="see_expenditures">See Expenditures</string>
+    <string name="title_activity_add_expenditure">AddExpenditure</string>
+    <string name="add">Add</string>
+    <string name="cost">Cost</string>
+    <string name="purchase">Purchase</string>
+</resources>

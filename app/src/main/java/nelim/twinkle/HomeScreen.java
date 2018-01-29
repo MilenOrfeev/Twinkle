@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener
 {
@@ -174,12 +176,16 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
 
 
-    /** Called when the user taps the Add Expenditure button */
-/*    public void addPurchase(View view)
+    // Called when the user taps the Add Expenditure button
+    public void addPurchase(View view)
     {
+
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("message");
+       // myRef.setValue("Hello, World!");
+
         Intent intent = new Intent(this,AddExpenditure.class);
         startActivity(intent);
     }
-    */
 
 }

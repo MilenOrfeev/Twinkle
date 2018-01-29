@@ -6,4 +6,5 @@
     <string name="add">Add</string>
     <string name="cost">Cost</string>
     <string name="purchase">Purchase</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

@@ -98,7 +98,7 @@ public class AddExpenditure extends AppCompatActivity {
 
     private void writeNewUser(FirebaseUser user)
     {
-        mDatabaseReference.child("users").push().setValue(user.getUid());
+        mDatabaseReference.child("users").child(user.getUid()).setValue(user.getUid());
     }
 
 }

@@ -1,10 +1,6 @@
 package nelim.twinkle;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,8 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.FileOutputStream;
 
 public class AddExpenditure extends AppCompatActivity {
 
@@ -35,48 +29,32 @@ public class AddExpenditure extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
     // Called when user taps add button
     public void buttonAdd(View view)
     {
 
+        // Add new users to the database.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null)
             addUser(user);
+
+        // Create a product object.
         EditText purchaseTextBox = findViewById(R.id.purchaseTextBox);
         EditText txtCost = findViewById(R.id.costTextBox);
-        System.out.println(txtCost.getText());
-        System.out.println(Double.parseDouble(txtCost.getText().toString()));
         double cost = Double.parseDouble(txtCost.getText().toString());
         Product product = new Product(purchaseTextBox.getText().toString(),cost);
-        System.out.println(product);
-
-
-        String filename = "purchases.txt";
-        String string = product.toString() + "\n";
-        FileOutputStream outputStream;
 
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
+            // Add the product to the database
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // Add the user if they do not exist in the database.
     private void addUser(final FirebaseUser user)
     {
-        //DatabaseReference users = mDatabaseReference.child("users");
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference users = root.child("users");
         users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -96,9 +74,10 @@ public class AddExpenditure extends AppCompatActivity {
         });
     }
 
+    // Include the user in the database.
     private void writeNewUser(FirebaseUser user)
     {
-        mDatabaseReference.child("users").child(user.getUid()).setValue(user.getUid());
+        mDatabaseReference.child("users").child(user.getUid()).setValue(user.getDisplayName());
     }
 
 }

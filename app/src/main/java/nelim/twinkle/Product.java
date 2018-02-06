@@ -13,6 +13,11 @@ public class Product {
         cost = reqCost;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
     public String toString()
     {
         return String.format("%s\t%s", name, cost);

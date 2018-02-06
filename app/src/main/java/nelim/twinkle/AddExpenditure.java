@@ -20,6 +20,8 @@ public class AddExpenditure extends AppCompatActivity {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference= mDatabase.getReference();
 
+    // Add new users to the database.
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,6 @@ public class AddExpenditure extends AppCompatActivity {
     public void buttonAdd(View view)
     {
 
-        // Add new users to the database.
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null)
             addUser(user);
 
@@ -44,12 +44,15 @@ public class AddExpenditure extends AppCompatActivity {
         double cost = Double.parseDouble(txtCost.getText().toString());
         Product product = new Product(purchaseTextBox.getText().toString(),cost);
 
-        try {
-            // Add the product to the database
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        addProduct(product);
+
+    }
+
+    private void addProduct(Product newProduct)
+    {
+        mDatabaseReference.child("users").child(user.getUid())
+                .child("Product 1").setValue(newProduct.getName());
+
     }
 
     // Add the user if they do not exist in the database.

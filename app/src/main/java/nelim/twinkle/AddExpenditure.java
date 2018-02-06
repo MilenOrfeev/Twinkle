@@ -42,16 +42,16 @@ public class AddExpenditure extends AppCompatActivity {
         EditText purchaseTextBox = findViewById(R.id.purchaseTextBox);
         EditText txtCost = findViewById(R.id.costTextBox);
         double cost = Double.parseDouble(txtCost.getText().toString());
-        Product product = new Product(purchaseTextBox.getText().toString(),cost);
+        Expenditure expenditure = new Expenditure(purchaseTextBox.getText().toString(),cost);
 
-        addProduct(product);
+        addProduct(expenditure);
 
     }
 
-    private void addProduct(Product newProduct)
+    private void addProduct(Expenditure newExpenditure)
     {
         mDatabaseReference.child("users").child(user.getUid())
-                .child("Product 1").setValue(newProduct.getName());
+                .child("Product 1").setValue(newExpenditure.getName());
 
     }
 

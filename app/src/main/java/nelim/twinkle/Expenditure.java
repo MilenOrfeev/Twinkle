@@ -1,5 +1,7 @@
 package nelim.twinkle;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +36,12 @@ public class Expenditure
 
     public Map<String, Object> toMap()
     {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
         HashMap<String, Object> mapExpenditure = new HashMap<>();
         mapExpenditure.put("name", name);
         mapExpenditure.put("cost", cost);
-        mapExpenditure.put("purchase date", dateOfPurchase);
+        mapExpenditure.put("purchase date", dateFormat.format(dateOfPurchase));
 
         return mapExpenditure;
     }

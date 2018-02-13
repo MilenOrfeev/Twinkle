@@ -14,6 +14,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class AddExpenditure extends AppCompatActivity {
 
@@ -27,8 +32,6 @@ public class AddExpenditure extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expenditure);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     // Called when user taps add button
@@ -42,16 +45,19 @@ public class AddExpenditure extends AppCompatActivity {
         EditText purchaseTextBox = findViewById(R.id.purchaseTextBox);
         EditText txtCost = findViewById(R.id.costTextBox);
         double cost = Double.parseDouble(txtCost.getText().toString());
-        Expenditure expenditure = new Expenditure(purchaseTextBox.getText().toString(),cost);
+        Date dateOfPurchase = Calendar.getInstance().getTime();
+        Expenditure expenditure;
+        expenditure = new Expenditure(purchaseTextBox.getText().toString(),cost, dateOfPurchase);
+        Map<String, Object> mappedExpenditure = expenditure.toMap();
 
-        addProduct(expenditure);
+        addProduct(mappedExpenditure);
 
     }
 
-    private void addProduct(Expenditure newExpenditure)
+    private void addProduct(Map<String, Object> mappedExpenditure)
     {
         mDatabaseReference.child("users").child(user.getUid())
-                .child("Product 1").setValue(newExpenditure.getName());
+                .child("Product 1").updateChildren(mappedExpenditure);
 
     }
 

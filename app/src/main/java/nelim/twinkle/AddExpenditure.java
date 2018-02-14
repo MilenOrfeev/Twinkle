@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
@@ -54,10 +55,41 @@ public class AddExpenditure extends AppCompatActivity {
 
     }
 
-    private void addProduct(Map<String, Object> mappedExpenditure)
+    private void addProduct(final Map<String, Object> mappedExpenditure)
     {
+        Query lastQuery =
+                mDatabaseReference.child("users").child(user.getUid())
+                        .orderByChild("Product number").limitToLast(1);
+
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                //String productNo = dataSnapshot.child("users").child(user.getUid())
+                   //     .child("Product number").getValue().toString();
+                long noOfProducts = dataSnapshot.child("users").child(user.getUid())
+                        .getChildrenCount();
+                addProductNo(noOfProducts, mappedExpenditure);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Handle possible errors.
+            }
+        });
+    }
+
+    private void addProductNo(long noOfProducts, Map<String, Object> mappedExpenditure)
+    {
+
+        noOfProducts +=1;
+        String productNo = noOfProducts + "";
+        Map<String, Object> productToProductNo = new HashMap<>();
+        productToProductNo.put("Product number", productNo);
         mDatabaseReference.child("users").child(user.getUid())
-                .child("Product 1").updateChildren(mappedExpenditure);
+                .updateChildren(productToProductNo);
+        mDatabaseReference.child("users").child(user.getUid()).child(productNo)
+                .updateChildren(mappedExpenditure);
 
     }
 

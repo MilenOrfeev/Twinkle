@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     tools:context="nelim.twinkle.SeeExpenditures">
 
-    <EditText
-        android:id="@+id/editText2"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Empty"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ShowExpendituresButton" />
+
+    <Button
+        android:id="@+id/ShowExpendituresButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="showExpenditures"
+        android:text="@string/ShowExpenditures"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

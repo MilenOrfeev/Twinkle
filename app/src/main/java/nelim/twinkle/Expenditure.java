@@ -16,6 +16,7 @@ public class Expenditure
     private String name;
     private double cost;
     private Date dateOfPurchase;
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public Expenditure()
     {
@@ -29,11 +30,13 @@ public class Expenditure
 
     }
 
+
     public String getName()
     {
         return name;
     }
 
+    // The next setters and getters are needed when Firebase creates expenditure objects.
     public double getCost()
     {
         return cost;
@@ -52,7 +55,6 @@ public class Expenditure
     public void setDateOfPurchase(String givenDateOfPurchase)
     {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try
         {
             dateOfPurchase =  dateFormat.parse(givenDateOfPurchase);
@@ -62,15 +64,21 @@ public class Expenditure
         }
     }
 
+    public String formatForUser()
+    {
+        DateFormat dateAndTimeFormat  = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return "Bought " + name + " for " + cost + " on "
+                + dateAndTimeFormat.format(dateOfPurchase);
+    }
+
+    // Used mainly for testing
     public String toString()
     {
-        return "Bought " + name + " for " + cost + " on " + dateOfPurchase;
+        return "Name: " + name + ", cost:" + cost + "date of purchase: " + dateOfPurchase;
     }
 
     public Map<String, Object> toMap()
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
         HashMap<String, Object> mapExpenditure = new HashMap<>();
         mapExpenditure.put("name", name);
         mapExpenditure.put("cost", cost);

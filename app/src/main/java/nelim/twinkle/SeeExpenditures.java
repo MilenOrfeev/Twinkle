@@ -25,16 +25,23 @@ public class SeeExpenditures extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_expenditures);
     }
+
+    // Called when user clicks the "Show Expenditures button"
     public void showExpenditures(View view)
     {
+        TextView expenditureBox = findViewById(R.id.expenditureBox);
+        expenditureBox.setVisibility(View.VISIBLE);
         showExpenses();
     }
 
+    // Gives a text box to the user with all of their expenses.
     private void showExpenses()
     {
+        // Obtain a reference to the database.
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDatabaseReference= mDatabase.getReference();
 
+        // Get a snapshot of the database.
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -43,12 +50,17 @@ public class SeeExpenditures extends AppCompatActivity
                 // Get the count of expenditures for that particular user.
                 long noOfExpenditures = dataSnapshot.child("users").child(user.getUid())
                         .getChildrenCount();
-                //TextView
+
+                // Empty the box.
+                TextView expenditureBox = findViewById(R.id.expenditureBox);
+                expenditureBox.setText("");
+
+                // Show the user their expenses.
                 for(int count = 1; count <= noOfExpenditures; count++)
                 {
                     Expenditure expenditure = dataSnapshot.child("users").child(user.getUid())
                             .child("Expenditure " + count).getValue(Expenditure.class);
-                    System.out.println(expenditure);
+                    expenditureBox.append(expenditure.formatForUser() + "\n");
                 }
             }
 

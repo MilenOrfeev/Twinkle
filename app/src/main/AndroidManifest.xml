@@ -18,10 +18,8 @@
         </activity>
         <activity
             android:name=".AddExpenditure"
-            android:label="@string/title_activity_add_expenditure"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".HomeScreen">
-        <!-- The meta-data tag is required to support API level 15 and lower -->
+            <!-- The meta-data tag is required to support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeScreen" />
